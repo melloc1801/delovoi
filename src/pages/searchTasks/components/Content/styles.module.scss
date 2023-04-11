@@ -1,0 +1,16 @@
+.wrapper {
+  display: grid;
+  gap: 24px;
+}
+
+.inner {
+  display: grid;
+  gap: 16px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+

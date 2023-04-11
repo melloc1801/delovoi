@@ -1,0 +1,54 @@
+.wrapper {
+  position: relative;
+}
+
+
+.head {
+  position: relative;
+  padding: 8px 12px;
+  background: #FFFFFF;
+  border: 1px solid #BDC6CD;
+  border-radius: 8px;
+  font-size: 16px;
+  line-height: 22px;
+  cursor: pointer;
+
+  &--empty {
+    color: #BDC6CD;
+  }
+
+  &__icon {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    transform: translateY(-50%);
+
+    &--opened {
+      transform: rotate(180deg) translateY(50%);
+    }
+  }
+}
+
+.body {
+  position: absolute;
+  left: 0;
+  top: 50px;
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid #BDC6CD;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.item {
+  padding: 10px 12px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #BDC6CD;
+  }
+
+  &--active {
+    background-color: #BDC6CD;
+  }
+}

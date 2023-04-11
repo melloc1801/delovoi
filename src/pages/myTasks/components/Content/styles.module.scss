@@ -1,0 +1,8 @@
+.list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  flex-grow: 1;
+  overflow-y: auto;
+  max-height: 100%;
+}

@@ -1,0 +1,21 @@
+.form {
+  display: grid;
+  row-gap: 24px;
+}
+
+.inner {
+  display: flex;
+}
+
+.button {
+  margin-left: 12px;
+}
+
+.controlls {
+  display: flex;
+  justify-content: space-between;
+}
+
+.controll {
+  flex: 0 1 120px;
+}
