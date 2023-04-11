@@ -13,5 +13,8 @@ module.exports = {
   },
   rules: {
     'prettier/prettier': 'error',
+    'react/prop-types': 'off',
+    '@typescript-eslint/strict-boolean-expressions': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
   },
 };

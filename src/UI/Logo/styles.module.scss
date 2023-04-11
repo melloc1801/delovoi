@@ -1,0 +1,25 @@
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &--primary {
+    background-color: #3C2D96;
+  }
+
+  &--secondary {
+    background-color: #C5D1E0;
+  }
+
+  &--sm {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+  }
+
+  &--md {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+  }
+}

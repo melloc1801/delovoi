@@ -1,0 +1,61 @@
+.wrapper {
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  &__img {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  &__name {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    margin-bottom: 4px;
+  }
+
+  &__status {
+    font-size: 12px;
+    line-height: 16px;
+    color: #8596AA;
+  }
+
+  &__rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    line-height: 16px;
+  }
+}
+
+.controlls {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.notifications {
+  position: relative;
+
+  &__identifier {
+    position: absolute;
+    bottom: 4px;
+    right: -1px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #E52E2E;
+  }
+}

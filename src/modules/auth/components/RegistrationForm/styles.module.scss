@@ -1,0 +1,86 @@
+.top {
+  &__wrapper {
+    display: grid;
+    row-gap: 12px;
+    margin-bottom: 24px;
+  }
+}
+
+.middlename {
+  margin-left: 8px;
+  cursor: pointer;
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  &__checkbox {
+    flex: 0 0 20px;
+  }
+}
+
+.bottom {
+  &__wrapper {
+    display: grid;
+    row-gap: 24px;
+    margin-bottom: 24px;
+  }
+
+  &__city {
+    position: relative;
+    z-index: 3;
+  }
+}
+
+.phone {
+  &__wrapper {
+    display: flex;
+  }
+
+  &__input {
+    margin-right: 12px;
+  }
+}
+
+.conditions {
+  margin-left: 8px;
+
+  &__wrapper {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    cursor: pointer;
+  }
+
+  &__checkbox {
+    flex: 0 0 20px;
+    margin-right: 8px;
+  }
+}
+
+.controlls {
+  &__wrapper {
+    display: flex;
+    width: 100%;
+    gap: 20px;
+    justify-content: space-between;
+
+    @media (max-width: 480px) {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 16px;
+    }
+  }
+
+  &__left {
+    flex: 0 1 120px;
+
+    @media (max-width: 480px) {
+      flex: unset;
+    }
+  }
+
+  &__right {
+  }
+}
