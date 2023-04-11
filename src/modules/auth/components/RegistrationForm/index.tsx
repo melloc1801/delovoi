@@ -6,6 +6,7 @@ import { Checkbox } from '../../../../UI/Checkbox';
 import { Select } from '../../../../UI/Select';
 import { Button } from '../../../../UI/Button';
 import { LogoIcon } from '../../../../assets/icons';
+import { useNavigate } from 'react-router-dom';
 
 interface FormState {
   lastname: string;
@@ -28,11 +29,43 @@ const initialState: FormState = {
 };
 
 export const RegistrationForm: React.FC = () => {
+  const navigate = useNavigate();
+  const onSumbitHandle = async (values: FormState) => {
+    await fetch('https://api.jump.finance/services/openapi/contractors', {
+      headers: {
+        'Client-Key': '3776dd62-0022-42de-90e1-d18cea78971c',
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        phone: values.phone,
+        last_name: values.lastname,
+        first_name: values.firstname,
+        middle_name: values.middlename,
+        legal_form_id: 2,
+        agent_id: 4534,
+        group_id: 18743,
+      }),
+    });
+    navigate('/');
+  };
+
   return (
     <div>
-      <Formik initialValues={initialState} onSubmit={(values: FormState) => {}}>
-        {({ values, handleChange, setValues, handleReset }) => (
-          <form>
+      <Formik
+        initialValues={initialState}
+        onSubmit={(values: FormState) => {
+          onSumbitHandle(values);
+        }}
+      >
+        {({ values, handleChange, setValues, handleReset, handleSubmit }) => (
+          <form
+            onSubmit={(e) => {
+              handleSubmit(e);
+              onSumbitHandle(values);
+            }}
+          >
             <div className={styles.top__wrapper}>
               <div>
                 <Input
@@ -101,7 +134,7 @@ export const RegistrationForm: React.FC = () => {
               <div className={styles.phone__wrapper}>
                 <div className={styles.phone__input}>
                   <Input
-                    placeholder="+7 (___)___-__-__"
+                    placeholder="+79997776655"
                     name="phone"
                     onChange={handleChange}
                     value={values.phone}
