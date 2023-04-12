@@ -14,89 +14,106 @@ const items = [
     id: 1,
     organization: {
       name: 'Gloria Jeans',
-      avatarUrl: '',
+      avatarUrl: 'https://corp.gloria-jeans.ru/favicon.ico?20131106',
     },
     post: 'Сортировщик',
     address: 'ул. Льва Толстого, 21',
     time: '09:00 – 17:00',
     paymentRate: '120 ₽/час или до 3 456 ₽/день',
+    description:
+      'Gloria Jeans — советская и российская компания, специализирующаяся на производстве и торговле одеждой, обувью и аксессуарами для всей семьи под брендом «Gloria Jeans». Компания была основана в 1988 году Владимиром Мельниковым.',
+    isOpenDefault: true,
   },
   {
     id: 2,
     organization: {
-      name: 'Gloria Jeans',
-      avatarUrl: '',
+      name: 'Название организации',
     },
     post: 'Сортировщик',
     address: 'ул. Льва Толстого, 21',
     time: '09:00 – 17:00',
     paymentRate: '120 ₽/час или до 3 456 ₽/день',
+    description:
+      'Gloria Jeans — советская и российская компания, специализирующаяся на производстве и торговле одеждой, обувью и аксессуарами для всей семьи под брендом «Gloria Jeans». Компания была основана в 1988 году Владимиром Мельниковым.',
+    hasDiscount: true,
   },
   {
     id: 3,
     organization: {
       name: 'Gloria Jeans',
-      avatarUrl: '',
+      avatarUrl: 'https://corp.gloria-jeans.ru/favicon.ico?20131106',
     },
     post: 'Сортировщик',
     address: 'ул. Льва Толстого, 21',
     time: '09:00 – 17:00',
     paymentRate: '120 ₽/час или до 3 456 ₽/день',
+    description:
+      'Gloria Jeans — советская и российская компания, специализирующаяся на производстве и торговле одеждой, обувью и аксессуарами для всей семьи под брендом «Gloria Jeans». Компания была основана в 1988 году Владимиром Мельниковым.',
   },
   {
     id: 4,
     organization: {
       name: 'Gloria Jeans',
-      avatarUrl: '',
+      avatarUrl: 'https://corp.gloria-jeans.ru/favicon.ico?20131106',
     },
     post: 'Сортировщик',
     address: 'ул. Льва Толстого, 21',
     time: '09:00 – 17:00',
     paymentRate: '120 ₽/час или до 3 456 ₽/день',
+    description:
+      'Gloria Jeans — советская и российская компания, специализирующаяся на производстве и торговле одеждой, обувью и аксессуарами для всей семьи под брендом «Gloria Jeans». Компания была основана в 1988 году Владимиром Мельниковым.',
   },
   {
     id: 5,
     organization: {
       name: 'Gloria Jeans',
-      avatarUrl: '',
+      avatarUrl: 'https://corp.gloria-jeans.ru/favicon.ico?20131106',
     },
     post: 'Сортировщик',
     address: 'ул. Льва Толстого, 21',
     time: '09:00 – 17:00',
     paymentRate: '120 ₽/час или до 3 456 ₽/день',
+    description:
+      'Gloria Jeans — советская и российская компания, специализирующаяся на производстве и торговле одеждой, обувью и аксессуарами для всей семьи под брендом «Gloria Jeans». Компания была основана в 1988 году Владимиром Мельниковым.',
   },
   {
     id: 6,
     organization: {
       name: 'Gloria Jeans',
-      avatarUrl: '',
+      avatarUrl: 'https://corp.gloria-jeans.ru/favicon.ico?20131106',
     },
     post: 'Сортировщик',
     address: 'ул. Льва Толстого, 21',
     time: '09:00 – 17:00',
     paymentRate: '120 ₽/час или до 3 456 ₽/день',
+    description:
+      'Gloria Jeans — советская и российская компания, специализирующаяся на производстве и торговле одеждой, обувью и аксессуарами для всей семьи под брендом «Gloria Jeans». Компания была основана в 1988 году Владимиром Мельниковым.',
   },
   {
     id: 7,
     organization: {
       name: 'Gloria Jeans',
-      avatarUrl: '',
+      avatarUrl: 'https://corp.gloria-jeans.ru/favicon.ico?20131106',
     },
     post: 'Сортировщик',
     address: 'ул. Льва Толстого, 21',
     time: '09:00 – 17:00',
     paymentRate: '120 ₽/час или до 3 456 ₽/день',
+    description:
+      'Gloria Jeans — советская и российская компания, специализирующаяся на производстве и торговле одеждой, обувью и аксессуарами для всей семьи под брендом «Gloria Jeans». Компания была основана в 1988 году Владимиром Мельниковым.',
   },
   {
     id: 8,
     organization: {
       name: 'Gloria Jeans',
-      avatarUrl: '',
+      avatarUrl: 'https://corp.gloria-jeans.ru/favicon.ico?20131106',
     },
     post: 'Сортировщик',
     address: 'ул. Льва Толстого, 21',
     time: '09:00 – 17:00',
     paymentRate: '120 ₽/час или до 3 456 ₽/день',
+    description:
+      'Gloria Jeans — советская и российская компания, специализирующаяся на производстве и торговле одеждой, обувью и аксессуарами для всей семьи под брендом «Gloria Jeans». Компания была основана в 1988 году Владимиром Мельниковым.',
   },
 ];
 
@@ -122,21 +139,26 @@ export const Content: React.FC = () => {
               ? items.map((item) => (
                   <TaskCard
                     key={item.id}
-                    organization={{ avatarUrl: '', name: 'Gloria Jeans' }}
-                    post="Сортировщик"
-                    address="ул. Льва Толстого, 21"
-                    time="09:00 – 17:00"
-                    paymentRate="120 ₽/час или до 3 456 ₽/день"
+                    organization={item.organization}
+                    post={item.post}
+                    address={item.address}
+                    time={item.time}
+                    paymentRate={item.paymentRate}
+                    hasDiscount={item.hasDiscount}
+                    description={item.description}
+                    isOpenDefault={item.isOpenDefault}
                   />
                 ))
               : items.map((item) => (
                   <TaskCardMobile
                     key={item.id}
-                    organization={{ avatarUrl: '', name: 'Gloria Jeans' }}
-                    post="Сортировщик"
-                    address="ул. Льва Толстого, 21"
-                    time="09:00 – 17:00"
-                    paymentRate="120 ₽/час или до 3 456 ₽/день"
+                    organization={item.organization}
+                    post={item.post}
+                    address={item.address}
+                    time={item.time}
+                    paymentRate={item.paymentRate}
+                    hasDiscount={item.hasDiscount}
+                    description={item.description}
                   />
                 ))}
           </div>

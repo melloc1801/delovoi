@@ -18,6 +18,7 @@ const list = [
     date: '21 марта 2023 09:00-11:00',
     paymentDescription:
       'Через сколько и при каких условиях получает после смены 120 ₽/час или до 3 456 ₽/день',
+    isOpenDefault: true,
   },
   {
     id: 2,
@@ -82,6 +83,7 @@ export const Content: React.FC = () => {
             address={el.address}
             post={el.post}
             date={el.date}
+            isOpenDefault={el.isOpenDefault}
           />
         ))}
       </div>

@@ -7,9 +7,9 @@ export const Status: React.FC = () => {
     <div className={styles.wrapper}>
       <div className={styles.title}>Статус</div>
       <div className={styles.inner}>
-        <div className={styles.value}>самозанятый</div>
+        <div className={styles.value}>Самозанятый</div>
         <div>
-          <Button variant="outlined">Подробее</Button>
+          <Button variant="outlined">Подробнее</Button>
         </div>
       </div>
     </div>

@@ -8,7 +8,6 @@ import {
 import { type Pair, Select } from '../../../../UI/Select';
 import { Formik } from 'formik';
 import styles from './styles.module.scss';
-import { Button } from '../../../../UI/Button';
 import { useTabs } from '../../../../hooks/useTabs';
 import classNames from 'classnames';
 
@@ -66,7 +65,6 @@ export const ControllBar: React.FC<ControllBarProps> = ({
         )}
       </Formik>
       <div className={styles.controlls}>
-        <Button variant="outlined">Подписаться на задание</Button>
         <div className={styles.tabs}>
           <button
             className={classNames(
@@ -94,7 +92,11 @@ export const ControllBar: React.FC<ControllBarProps> = ({
               onChangeViewClick('items');
             }}
           >
-            <ListIcon width={20} height={20} stroke="#3BF1E2" />
+            <ListIcon
+              width={20}
+              height={20}
+              stroke={activeTab === 1 ? '#3BF1E2' : '#3C2D96'}
+            />
           </button>
         </div>
       </div>

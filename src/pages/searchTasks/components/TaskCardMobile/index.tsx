@@ -6,8 +6,10 @@ import {
   DeliveryIcon,
   DinnerIcon,
   GeoIcon,
+  ShevronDownIcon,
 } from '../../../../assets/icons';
 import { Button } from '../../../../UI/Button';
+import classNames from 'classnames';
 
 interface TaskCardMobileProps {
   organization: {
@@ -18,8 +20,11 @@ interface TaskCardMobileProps {
   address: string;
   time: string;
   paymentRate: string;
+  description: string;
   selected?: boolean;
   onSelect?: () => void;
+  hasDiscount?: boolean;
+  isDefaultOpen?: boolean;
 }
 
 export const TaskCardMobile: React.FC<TaskCardMobileProps> = ({
@@ -30,38 +35,76 @@ export const TaskCardMobile: React.FC<TaskCardMobileProps> = ({
   time,
   address,
   paymentRate,
+  hasDiscount = false,
+  description,
+  isDefaultOpen = false,
 }) => {
+  const [isOpen, setIsOpen] = React.useState<boolean>(isDefaultOpen);
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.head}>
-        {organization.avatarUrl ? (
-          <img src={organization.avatarUrl} alt="organization logo" />
-        ) : (
-          <Logo variant="secondary" size="sm" />
+    <div
+      className={classNames(
+        { [styles['wrapper--discount']]: hasDiscount },
+        styles.wrapper
+      )}
+    >
+      <div
+        className={classNames(
+          { [styles['head--discount']]: hasDiscount },
+          styles.head
         )}
-        {organization.name}
-      </div>
-      <div className={styles.body}>
-        <div className={styles.date}>
-          <CalendarIcon width={20} height={20} fill="#87A2BE" />
-          {time}
+        onClick={() => {
+          setIsOpen((prev) => !prev);
+        }}
+      >
+        <div className={styles.organization}>
+          {organization.avatarUrl ? (
+            <img
+              className={styles.logo}
+              src={organization.avatarUrl}
+              alt="organization logo"
+            />
+          ) : (
+            <Logo variant="secondary" size="sm" />
+          )}
+          {organization.name}
         </div>
-        <div className={styles.features}>
-          <DinnerIcon width={24} height={24} stroke="#3C2D96" />
-          <DeliveryIcon width={24} height={24} stroke="#3C2D96" />
-        </div>
-        <div className={styles.post}>{post}</div>
-        <div className={styles.paymentRate}>{paymentRate}</div>
-      </div>
-      <div className={styles.footer}>
-        <div className={styles.address}>
-          <GeoIcon width={14} height={20} fill="#FFD480" />
-          ул. Льва Толстого, 21
-        </div>
-        <div className={styles.controlls}>
-          <Button>Взять в работу</Button>
+        <div className={classNames({ [styles.rotated]: isOpen })}>
+          <ShevronDownIcon width={12} height={8} />
         </div>
       </div>
+      <>
+        <div className={styles.body}>
+          <div className={styles.date}>
+            <CalendarIcon width={20} height={20} fill="#87A2BE" />
+            {time}
+          </div>
+          <div className={styles.features}>
+            <DinnerIcon width={24} height={24} stroke="#3C2D96" />
+            <DeliveryIcon width={24} height={24} stroke="#3C2D96" />
+          </div>
+          {isOpen ? (
+            <div className={styles.desription}>{description}</div>
+          ) : null}
+          <div
+            className={classNames(
+              { [styles['post--discount']]: hasDiscount },
+              styles.post
+            )}
+          >
+            {post}
+          </div>
+          <div className={styles.paymentRate}>{paymentRate}</div>
+        </div>
+        <div className={styles.footer}>
+          <div className={styles.address}>
+            <GeoIcon width={14} height={20} fill="#FFD480" />
+            ул. Льва Толстого, 21
+          </div>
+          <div className={styles.controlls}>
+            <Button>Записаться</Button>
+          </div>
+        </div>
+      </>
     </div>
   );
 };

@@ -15,7 +15,7 @@ export const LoginForm: React.FC = () => {
               <Input
                 name="phone"
                 onChange={handleChange}
-                placeholder="+7 (___)___-__-__"
+                placeholder="+79997776655"
                 onClear={() => {
                   setValues({ ...values, phone: '' });
                 }}

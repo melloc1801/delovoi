@@ -3,14 +3,38 @@
   box-shadow: 0px 0px 15px 4px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
   overflow: hidden;
+
+  &--discount {
+    background-color: #FFF6E6;
+  }
 }
 
 .head {
   display: flex;
   padding: 16px;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
   background-color: #E8EDF3;
+
+  &--discount {
+    background-color: #FFD480;
+  }
+}
+
+
+.organization {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .body {
@@ -31,12 +55,21 @@
 .features {
   display: flex;
   gap: 12px;
+  justify-content: flex-end;
 }
 
 .post {
   padding: 4px 10px;
   background: #E8EDF3;
   border-radius: 100px;
+
+  &--discount {
+    background-color: #FFD480;
+  }
+}
+
+.data, .features, .post .paymentRate {
+  flex: 1 1 25%;
 }
 
 .footer {
@@ -45,10 +78,18 @@
   gap: 12px;
   padding: 16px;
   border-top: 1px solid #DEE3E8;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 }
 
 .address {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.rotated {
+  transform: rotate(180deg);
 }

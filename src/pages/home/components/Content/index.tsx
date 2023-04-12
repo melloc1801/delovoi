@@ -17,6 +17,7 @@ export const Content: React.FC = () => {
         organization={{ name: 'Магазин без лого' }}
         post="Сортировщик"
         date="21 марта 2023 09:00-11:00"
+        isClosedTask
       />
     </>
   );

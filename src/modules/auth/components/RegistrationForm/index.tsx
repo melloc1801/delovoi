@@ -177,7 +177,11 @@ export const RegistrationForm: React.FC = () => {
                 </Button>
               </div>
               <div>
-                <Button icon={LogoIcon} type="submit">
+                <Button
+                  icon={LogoIcon}
+                  type="submit"
+                  disabled={!values.personalDataProcessing}
+                >
                   Зарегистрироваться
                 </Button>
               </div>
