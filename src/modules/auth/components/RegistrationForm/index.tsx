@@ -10,6 +10,7 @@ import { useSignupMutation } from '../../api/useSignupMutation';
 import { useNavigate } from 'react-router-dom';
 import { useGetConfirmationCode } from '../../api/useGetConfirmationCode';
 import { ConfirmPhoneSection } from '../ConfirmPhoneSection';
+import { useLocalStorage } from '../../../../hooks/useLocalStorage';
 
 interface FormState {
   lastname: string;
@@ -39,19 +40,23 @@ const initialState: FormState = {
 
 export const RegistrationForm: React.FC = () => {
   const navigate = useNavigate();
-  const { mutate } = useSignupMutation(navigate);
+  const localStorage = useLocalStorage();
+  const { mutateAsync: signup } = useSignupMutation();
   const { mutate: getConfirmationCode, data: codeData } =
     useGetConfirmationCode();
   const onSubmitHandle = async (values: FormState) => {
     if (!values.city?.value) {
       return;
     }
-    mutate({
+    signup({
       phone: values.phone,
       city: values.city?.value,
       middlename: values.middlename,
       firstname: values.firstname,
       lastname: values.lastname,
+    }).then((data) => {
+      localStorage.setAuthToken(data.data.token);
+      navigate('/');
     });
   };
 
@@ -66,11 +71,7 @@ export const RegistrationForm: React.FC = () => {
     <div>
       <Formik initialValues={initialState} onSubmit={onSubmitHandle}>
         {({ values, handleChange, setValues, handleReset, handleSubmit }) => (
-          <form
-            onSubmit={(e) => {
-              handleSubmit(e);
-            }}
-          >
+          <form onSubmit={handleSubmit}>
             <div className={styles.top__wrapper}>
               <Input
                 name="lastname"

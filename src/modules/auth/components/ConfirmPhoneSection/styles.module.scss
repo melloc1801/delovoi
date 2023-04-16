@@ -21,6 +21,15 @@
     line-height: 16px;
   }
 
+  &__cooldown {
+    font-size: 12px;
+    line-height: 16px;
+
+    &--purple {
+      color: #3C2D96;
+    }
+  }
+
   &__repeat {
     font-size: 14px;
     line-height: 20px;

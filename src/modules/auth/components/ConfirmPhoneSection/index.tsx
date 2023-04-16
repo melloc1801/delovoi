@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './styles.module.scss';
 import { OTPInput } from '../../../../UI/OTPInput';
+import { numberToMMSS } from '../../../../helpers/formatTime';
 
 interface ConfirmPhoneSectionProps {
   onInputFilled: (code: string) => void;
@@ -47,7 +48,12 @@ export const ConfirmPhoneSection: React.FC<ConfirmPhoneSectionProps> = ({
       {isPhoneConfirmed ? (
         <div className={styles.confirmation__success}>Верный код</div>
       ) : isCooldownActive ? (
-        <div>Новый код придет в течении {seconds}</div>
+        <div className={styles.confirmation__cooldown}>
+          Новый код придет в течении{' '}
+          <span className={styles['confirmation__cooldown--purple']}>
+            {numberToMMSS(seconds)}
+          </span>
+        </div>
       ) : (
         <button
           className={styles.confirmation__repeat}
