@@ -1,0 +1,43 @@
+.confirmation {
+  margin-bottom: 24px;
+
+  &__title {
+    margin-bottom: 6px;
+    font-size: 12px;
+    line-height: 16px;
+
+  }
+
+  &__subtitle {
+    margin-bottom: 12px;
+    font-size: 12px;
+    line-height: 16px;
+    color: #798C9D;
+  }
+
+  &__success {
+    color: #46B755;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  &__cooldown {
+    font-size: 12px;
+    line-height: 16px;
+
+    &--purple {
+      color: #3C2D96;
+    }
+  }
+
+  &__repeat {
+    font-size: 14px;
+    line-height: 20px;
+    color: #6357AB;
+    background-color: transparent;
+  }
+
+  &__otp {
+    margin-bottom: 12px;
+  }
+}

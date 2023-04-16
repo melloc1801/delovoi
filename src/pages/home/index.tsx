@@ -1,8 +1,8 @@
 import React from 'react';
-import { MainLayout } from '../../components/MainLayout';
-import { MainLayoutMobile } from '../../components/MainLayoutMobile';
 import { useWindowResize } from '../../hooks/useWindowResize';
 import { Content } from './components/Content';
+import { MainLayout } from '../../components/MainLayout';
+import { MainLayoutMobile } from '../../components/MainLayoutMobile';
 
 export const HomePage: React.FC = () => {
   const { size } = useWindowResize();

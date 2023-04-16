@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Formik } from 'formik';
 import { Input } from '../../../../UI/Input';
 import styles from './styles.module.scss';
@@ -6,7 +6,12 @@ import { Checkbox } from '../../../../UI/Checkbox';
 import { Select } from '../../../../UI/Select';
 import { Button } from '../../../../UI/Button';
 import { LogoIcon } from '../../../../assets/icons';
+import { useSignupMutation } from '../../api/useSignupMutation';
 import { useNavigate } from 'react-router-dom';
+import { useGetConfirmationCode } from '../../api/useGetConfirmationCode';
+import { ConfirmPhoneSection } from '../ConfirmPhoneSection';
+import { useLocalStorage } from '../../../../hooks/useLocalStorage';
+import { AuthContext } from '../../context/AuthContext';
 
 interface FormState {
   lastname: string;
@@ -16,6 +21,9 @@ interface FormState {
   city: { key: string; value: string } | null;
   phone: string;
   personalDataProcessing: boolean;
+  isConfirmationStarted: boolean;
+  confirmationCode: string | null;
+  isPhoneConfirmed: boolean;
 }
 
 const initialState: FormState = {
@@ -26,80 +34,76 @@ const initialState: FormState = {
   city: null as { key: string; value: string } | null,
   phone: '',
   personalDataProcessing: false,
+  isConfirmationStarted: false,
+  confirmationCode: null,
+  isPhoneConfirmed: false,
 };
 
 export const RegistrationForm: React.FC = () => {
   const navigate = useNavigate();
-  const onSumbitHandle = async (values: FormState) => {
-    await fetch('https://api.jump.finance/services/openapi/contractors', {
-      headers: {
-        'Client-Key': '3776dd62-0022-42de-90e1-d18cea78971c',
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-      body: JSON.stringify({
-        phone: values.phone,
-        last_name: values.lastname,
-        first_name: values.firstname,
-        middle_name: values.middlename,
-        legal_form_id: 2,
-        agent_id: 4534,
-        group_id: 18743,
-      }),
+  const localStorage = useLocalStorage();
+  const authContext = useContext(AuthContext);
+  const { mutateAsync: signup } = useSignupMutation();
+  const { mutate: getConfirmationCode, data: codeData } =
+    useGetConfirmationCode();
+  const onSubmitHandle = async (values: FormState) => {
+    if (!values.city?.value) {
+      return;
+    }
+    signup({
+      phone: values.phone,
+      city: values.city?.value,
+      middlename: values.middlename,
+      firstname: values.firstname,
+      lastname: values.lastname,
+    }).then((data) => {
+      localStorage.setAuthToken(data.data.token);
+      navigate('/');
+      authContext.setToken(data.data.token);
+      authContext.setAuth(true);
     });
-    navigate('/');
   };
+
+  const onGetConfirmationCodeHandler = React.useCallback(
+    async (phone: string) => {
+      getConfirmationCode({ phone });
+    },
+    []
+  );
 
   return (
     <div>
-      <Formik
-        initialValues={initialState}
-        onSubmit={(values: FormState) => {
-          onSumbitHandle(values);
-        }}
-      >
+      <Formik initialValues={initialState} onSubmit={onSubmitHandle}>
         {({ values, handleChange, setValues, handleReset, handleSubmit }) => (
-          <form
-            onSubmit={(e) => {
-              handleSubmit(e);
-              onSumbitHandle(values);
-            }}
-          >
+          <form onSubmit={handleSubmit}>
             <div className={styles.top__wrapper}>
-              <div>
-                <Input
-                  name="lastname"
-                  placeholder="Фамилия"
-                  onChange={handleChange}
-                  value={values.lastname}
-                  onClear={() => {
-                    setValues({ ...values, lastname: '' });
-                  }}
-                />
-              </div>
-              <div>
-                <Input
-                  name="firstname"
-                  placeholder="Имя"
-                  onChange={handleChange}
-                  value={values.firstname}
-                  onClear={() => {
-                    setValues({ ...values, firstname: '' });
-                  }}
-                />
-              </div>
-              <div>
-                <Input
-                  name="middlename"
-                  placeholder="Отчество"
-                  onChange={handleChange}
-                  value={values.middlename}
-                  onClear={() => {
-                    setValues({ ...values, middlename: '' });
-                  }}
-                />
-              </div>
+              <Input
+                name="lastname"
+                placeholder="Фамилия"
+                onChange={handleChange}
+                value={values.lastname}
+                onClear={() => {
+                  setValues({ ...values, lastname: '' });
+                }}
+              />
+              <Input
+                name="firstname"
+                placeholder="Имя"
+                onChange={handleChange}
+                value={values.firstname}
+                onClear={() => {
+                  setValues({ ...values, firstname: '' });
+                }}
+              />
+              <Input
+                name="middlename"
+                placeholder="Отчество"
+                onChange={handleChange}
+                value={values.middlename}
+                onClear={() => {
+                  setValues({ ...values, middlename: '' });
+                }}
+              />
               <label
                 className={styles.middlename__wrapper}
                 onClick={() => {
@@ -123,8 +127,8 @@ export const RegistrationForm: React.FC = () => {
                 <Select
                   active={values.city ?? undefined}
                   values={[
-                    { key: 'MSC', value: 'Moscow' },
-                    { key: 'SPB', value: 'Saints-Petersberg' },
+                    { key: 'MSC', value: 'Москва' },
+                    { key: 'SPB', value: 'Санкт-Питербург' },
                   ]}
                   onSelect={(pair) => {
                     setValues({ ...values, city: pair });
@@ -143,13 +147,45 @@ export const RegistrationForm: React.FC = () => {
                     }}
                   />
                 </div>
-                <div className={styles.phone__button}>
-                  <Button variant="outlined" type="button">
-                    Подтвердить
-                  </Button>
-                </div>
+                {!values.isConfirmationStarted ? (
+                  <div className={styles.phone__button}>
+                    <Button
+                      onClick={() => {
+                        onGetConfirmationCodeHandler(values.phone);
+                        setValues({ ...values, isConfirmationStarted: true });
+                      }}
+                      variant="outlined"
+                      type="button"
+                      disabled={
+                        !values.phone ||
+                        (Boolean(values.phone) && values.isConfirmationStarted)
+                      }
+                    >
+                      Подтвердить
+                    </Button>
+                  </div>
+                ) : null}
               </div>
             </div>
+            {values.isConfirmationStarted ? (
+              <ConfirmPhoneSection
+                isPhoneConfirmed={values.isPhoneConfirmed}
+                hasError={
+                  values.confirmationCode !== null &&
+                  values.confirmationCode !== codeData?.result.code
+                }
+                onInputFilled={(code) => {
+                  setValues({
+                    ...values,
+                    confirmationCode: code || null,
+                    isPhoneConfirmed: code === codeData?.result.code,
+                  });
+                }}
+                onRefreshCode={async () =>
+                  await onGetConfirmationCodeHandler(values.phone)
+                }
+              />
+            ) : null}
             <label
               className={styles.conditions__wrapper}
               onClick={() => {
@@ -180,7 +216,9 @@ export const RegistrationForm: React.FC = () => {
                 <Button
                   icon={LogoIcon}
                   type="submit"
-                  disabled={!values.personalDataProcessing}
+                  disabled={
+                    !values.isPhoneConfirmed || !values.personalDataProcessing
+                  }
                 >
                   Зарегистрироваться
                 </Button>
