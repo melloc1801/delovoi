@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styles from './styles.module.scss';
 import { Input } from '../../../../UI/Input';
 import { Button } from '../../../../UI/Button';
@@ -9,6 +9,7 @@ import { useSignMutation } from '../../api/useSignMutation';
 import { useGetConfirmationCode } from '../../api/useGetConfirmationCode';
 import { useNavigate } from 'react-router-dom';
 import { useLocalStorage } from '../../../../hooks/useLocalStorage';
+import { AuthContext } from '../../context/AuthContext';
 
 interface FormState {
   phone: string;
@@ -27,6 +28,7 @@ const initialState: FormState = {
 export const LoginForm: React.FC = () => {
   const navigate = useNavigate();
   const localStorage = useLocalStorage();
+  const authContext = useContext(AuthContext);
   const { mutateAsync: signin } = useSignMutation();
   const { mutate: getCode, data: codeData } = useGetConfirmationCode();
   const onSubmitHandler = (values: FormState) => {
@@ -36,6 +38,8 @@ export const LoginForm: React.FC = () => {
         verify_code: values.confirmationCode,
       }).then((data) => {
         localStorage.setAuthToken(data.data.token);
+        authContext.setAuth(true);
+        authContext.setToken(data.data.token);
         navigate('/');
       });
     }
@@ -91,7 +95,11 @@ export const LoginForm: React.FC = () => {
           ) : null}
           <div className={styles.controlls}>
             <div className={styles.controll}>
-              <Button variant="outlined" type="reset" onClick={handleReset}>
+              <Button
+                variant="outlined"
+                type="reset"
+                onClick={() => setValues(initialState)}
+              >
                 Отмена
               </Button>
             </div>

@@ -18,8 +18,7 @@ export const ConfirmPhoneSection: React.FC<ConfirmPhoneSectionProps> = ({
   hasError = false,
 }) => {
   const [seconds, setSeconds] = React.useState(COOLDOWN_VALUE);
-  const [isCooldownActive, setIsCooldownActive] =
-    React.useState<boolean>(false);
+  const [isCooldownActive, setIsCooldownActive] = React.useState<boolean>(true);
 
   React.useEffect(() => {
     let interval: number;

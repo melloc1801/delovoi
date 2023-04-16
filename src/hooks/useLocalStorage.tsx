@@ -3,7 +3,7 @@ export const useLocalStorage = () => {
 };
 
 const getAuthToken = () => {
-  localStorage.getItem('authToken');
+  return localStorage.getItem('authToken');
 };
 
 const setAuthToken = (token: string) => {

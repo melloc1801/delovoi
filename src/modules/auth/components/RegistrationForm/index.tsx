@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Formik } from 'formik';
 import { Input } from '../../../../UI/Input';
 import styles from './styles.module.scss';
@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { useGetConfirmationCode } from '../../api/useGetConfirmationCode';
 import { ConfirmPhoneSection } from '../ConfirmPhoneSection';
 import { useLocalStorage } from '../../../../hooks/useLocalStorage';
+import { AuthContext } from '../../context/AuthContext';
 
 interface FormState {
   lastname: string;
@@ -41,6 +42,7 @@ const initialState: FormState = {
 export const RegistrationForm: React.FC = () => {
   const navigate = useNavigate();
   const localStorage = useLocalStorage();
+  const authContext = useContext(AuthContext);
   const { mutateAsync: signup } = useSignupMutation();
   const { mutate: getConfirmationCode, data: codeData } =
     useGetConfirmationCode();
@@ -57,6 +59,8 @@ export const RegistrationForm: React.FC = () => {
     }).then((data) => {
       localStorage.setAuthToken(data.data.token);
       navigate('/');
+      authContext.setToken(data.data.token);
+      authContext.setAuth(true);
     });
   };
 
