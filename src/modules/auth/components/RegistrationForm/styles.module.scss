@@ -36,10 +36,11 @@
 .phone {
   &__wrapper {
     display: flex;
+    gap: 12px;
   }
 
   &__input {
-    margin-right: 12px;
+    width: 100%;
   }
 }
 

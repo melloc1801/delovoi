@@ -16,4 +16,8 @@
   &:focus {
     border: 1px solid #181920;
   }
+
+  &--error {
+    border: 1px solid #EA5858;
+  }
 }
