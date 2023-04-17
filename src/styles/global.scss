@@ -59,3 +59,23 @@ a:hover {
 a:active {
   text-decoration: none;
 }
+
+.driver-card {
+  width: 240px;
+  height: 400px;
+}
+
+.ymaps-2-1-79-balloon {
+  box-shadow: none !important;
+}
+
+.ymaps-2-1-79-balloon__content {
+  padding: 0 !important;
+  background: transparent !important;
+  margin: 0 !important;
+}
+
+.ymaps-2-1-79-balloon__layout {
+  background: transparent !important;
+  border: none !important;
+}

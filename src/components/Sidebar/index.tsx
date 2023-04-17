@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { LogoWithName } from '../../UI/LogoWithName';
 import styles from './styles.module.scss';
 import {
@@ -13,6 +13,8 @@ import {
 import { NavLink, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 import { Badge } from '../../UI/Badge';
+import { AuthContext, useSignoutMutation } from '../../modules/auth';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 const links = [
   {
@@ -26,18 +28,32 @@ const links = [
     defaultIcon: TasksOutlinedIcon,
     value: 'Поиск заданий',
     href: '/search',
-    notificationsAmount: 44,
+    // notificationsAmount: 44,
   },
   {
     activeIcon: CheckFilledRoundedIcon,
     defaultIcon: CheckRoundedOutlinedIcon,
     value: 'Мои задания',
     href: '/mytasks',
-    notificationsAmount: 4,
+    notificationsAmount: undefined,
   },
 ];
+
 export const Sidebar: React.FC = () => {
   const location = useLocation();
+  const ls = useLocalStorage();
+  const authContext = useContext(AuthContext);
+  const { mutateAsync } = useSignoutMutation();
+
+  const onLogoutHandle = () => {
+    if (authContext.token) {
+      mutateAsync(authContext.token).then(() => {
+        authContext.setAuth(false);
+        authContext.setToken('');
+        ls.removeToken();
+      });
+    }
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -72,7 +88,7 @@ export const Sidebar: React.FC = () => {
           );
         })}
       </div>
-      <button className={styles.exit}>
+      <button className={styles.exit} onClick={onLogoutHandle}>
         <RightArrowIcon width={18} height={18} fill="#3C2D96" />
         Выйти
       </button>

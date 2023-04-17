@@ -9,7 +9,13 @@ export const Status: React.FC = () => {
       <div className={styles.inner}>
         <div className={styles.value}>Самозанятый</div>
         <div>
-          <Button variant="outlined">Подробнее</Button>
+          <a
+            href="https://play.google.com/store/apps/details?id=ru.delovoi"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Button variant="outlined">Подробнее</Button>
+          </a>
         </div>
       </div>
     </div>

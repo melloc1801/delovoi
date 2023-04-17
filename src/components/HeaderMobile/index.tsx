@@ -8,7 +8,7 @@ interface HeaderMobileProps {
     avatarUrl: string;
     name: string;
     status: string;
-    rating: 4.94;
+    rating: string;
   };
 }
 

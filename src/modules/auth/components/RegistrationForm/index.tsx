@@ -52,7 +52,7 @@ export const RegistrationForm: React.FC = () => {
     }
     signup({
       phone: values.phone,
-      city: values.city?.value,
+      city: values.city?.key,
       middlename: values.middlename,
       firstname: values.firstname,
       lastname: values.lastname,
@@ -127,8 +127,8 @@ export const RegistrationForm: React.FC = () => {
                 <Select
                   active={values.city ?? undefined}
                   values={[
-                    { key: 'MSC', value: 'Москва' },
-                    { key: 'SPB', value: 'Санкт-Питербург' },
+                    { key: '77', value: 'Москва' },
+                    { key: '65', value: 'Самара' },
                   ]}
                   onSelect={(pair) => {
                     setValues({ ...values, city: pair });

@@ -1,5 +1,5 @@
 export const useLocalStorage = () => {
-  return { getAuthToken, setAuthToken };
+  return { getAuthToken, setAuthToken, removeToken };
 };
 
 const getAuthToken = () => {
@@ -8,4 +8,8 @@ const getAuthToken = () => {
 
 const setAuthToken = (token: string) => {
   localStorage.setItem('authToken', token);
+};
+
+const removeToken = () => {
+  localStorage.removeItem('authToken');
 };

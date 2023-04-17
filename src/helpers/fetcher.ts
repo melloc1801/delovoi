@@ -1,12 +1,12 @@
 import axios, { type AxiosRequestConfig, type AxiosResponse } from 'axios';
+import { appConfig } from '../app-config';
 
 const instance = axios.create({
   baseURL: 'https://api.delovoi.me/api/',
-  // withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
-    'Api-Front-Token': 'X5uIpEV++InuNxjjx0rESRmA',
+    'Api-Front-Token': appConfig.apiKey,
   },
 });
 

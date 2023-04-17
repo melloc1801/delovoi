@@ -19,6 +19,8 @@ interface TaskCardProps {
   address: string;
   time: string;
   paymentRate: string;
+  onAccept: () => Promise<any>;
+  onDismiss: () => Promise<any>;
   selected?: boolean;
   onSelect?: () => void;
   hasDiscount?: boolean;
@@ -31,13 +33,23 @@ export const TaskCard: React.FC<TaskCardProps> = ({
   time,
   address,
   organization,
-  selected = false,
+  onAccept,
   onSelect,
+  selected = false,
   hasDiscount = false,
   description,
   isOpenDefault = false,
+  onDismiss,
 }) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(isOpenDefault);
+  const [isAccepted, setIsAccepted] = React.useState<boolean>(false);
+
+  const onAcceptHandle = () => {
+    onAccept().then(() => setIsAccepted(true));
+  };
+  const onDismissHandle = () => {
+    onDismiss().then(() => setIsAccepted(false));
+  };
 
   return (
     <div
@@ -80,7 +92,15 @@ export const TaskCard: React.FC<TaskCardProps> = ({
         <div className={styles.time}>{time}</div>
         <div className={styles.paymentRate}>{paymentRate}</div>
         <div className={styles.controlls}>
-          <Button>Взять в работу</Button>
+          {isAccepted ? (
+            <Button onClick={onDismissHandle} variant="filled">
+              Отменить
+            </Button>
+          ) : (
+            <Button onClick={onAcceptHandle} variant="outlined">
+              Взять в работу
+            </Button>
+          )}
           <div className={classNames({ [styles.rotate]: isOpen })}>
             <ShevronDownIcon width={12} height={8} />
           </div>
