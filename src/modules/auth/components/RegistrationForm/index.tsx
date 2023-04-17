@@ -12,6 +12,7 @@ import { useGetConfirmationCode } from '../../api/useGetConfirmationCode';
 import { ConfirmPhoneSection } from '../ConfirmPhoneSection';
 import { useLocalStorage } from '../../../../hooks/useLocalStorage';
 import { AuthContext } from '../../context/AuthContext';
+import { useGetRegionsQuery } from '../../api/useGetRegionsQuery';
 
 interface FormState {
   lastname: string;
@@ -52,7 +53,7 @@ export const RegistrationForm: React.FC = () => {
     }
     signup({
       phone: values.phone,
-      city: values.city?.value,
+      city: values.city?.key,
       middlename: values.middlename,
       firstname: values.firstname,
       lastname: values.lastname,
@@ -70,6 +71,8 @@ export const RegistrationForm: React.FC = () => {
     },
     []
   );
+
+  const { data: regions } = useGetRegionsQuery();
 
   return (
     <div>
@@ -126,10 +129,12 @@ export const RegistrationForm: React.FC = () => {
               <div className={styles.bottom__city}>
                 <Select
                   active={values.city ?? undefined}
-                  values={[
-                    { key: 'MSC', value: 'Москва' },
-                    { key: 'SPB', value: 'Санкт-Питербург' },
-                  ]}
+                  values={
+                    regions?.data.map((region) => ({
+                      key: region.code.toString(),
+                      value: region.name,
+                    })) ?? []
+                  }
                   onSelect={(pair) => {
                     setValues({ ...values, city: pair });
                   }}

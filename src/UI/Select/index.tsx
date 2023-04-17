@@ -45,20 +45,22 @@ export const Select: React.FC<SelectProps> = ({ active, values, onSelect }) => {
       </div>
       {isOpen ? (
         <div className={styles.body}>
-          {values.map((pair) => (
-            <div
-              className={classNames(
-                { [styles['item--active']]: active?.key === pair.key },
-                styles.item
-              )}
-              key={pair.key}
-              onClick={() => {
-                onSelectHandler(pair);
-              }}
-            >
-              {pair.value}
-            </div>
-          ))}
+          <div className={styles.body__inner}>
+            {values.map((pair) => (
+              <div
+                className={classNames(
+                  { [styles['item--active']]: active?.key === pair.key },
+                  styles.item
+                )}
+                key={pair.key}
+                onClick={() => {
+                  onSelectHandler(pair);
+                }}
+              >
+                {pair.value}
+              </div>
+            ))}
+          </div>
         </div>
       ) : null}
     </div>

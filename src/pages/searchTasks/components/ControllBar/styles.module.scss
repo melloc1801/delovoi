@@ -12,6 +12,10 @@
   }
 }
 
+.calendar {
+  width: 100%;
+}
+
 .filters {
   display: grid;
   align-items: center;
@@ -20,9 +24,6 @@
   gap: 16px;
 
   @media (max-width: 640px) {
-    grid-template-columns: auto auto auto;
-  }
-  @media (max-width: 480px) {
     grid-template-columns: 1fr;
   }
 

@@ -35,9 +35,15 @@
   top: 50px;
   width: 100%;
   background: #FFFFFF;
-  border: 1px solid #BDC6CD;
-  border-radius: 8px;
+  height: 250px;
   overflow: hidden;
+  outline: 1px solid #BDC6CD;
+  border-radius: 8px;
+
+  &__inner {
+    max-height: 100%;
+    overflow-y: auto;
+  }
 }
 
 .item {

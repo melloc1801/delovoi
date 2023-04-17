@@ -3,10 +3,14 @@ import { Balance } from '../Balance';
 import styles from './styles.module.scss';
 import { Status } from '../Status';
 
-export const Stats: React.FC = () => {
+interface StatsProps {
+  balance: number;
+}
+
+export const Stats: React.FC<StatsProps> = ({ balance }) => {
   return (
     <div className={styles.wrapper}>
-      <Balance value={12000} />
+      <Balance value={balance} />
       <Status />
     </div>
   );

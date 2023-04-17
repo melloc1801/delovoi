@@ -19,10 +19,14 @@ interface TaskCardProps {
   address: string;
   time: string;
   paymentRate: string;
+  onAccept: () => Promise<any>;
+  onDismiss: () => Promise<any>;
   selected?: boolean;
   onSelect?: () => void;
   hasDiscount?: boolean;
   isOpenDefault?: boolean;
+  meals?: boolean;
+  driveway?: boolean;
 }
 
 export const TaskCard: React.FC<TaskCardProps> = ({
@@ -31,13 +35,25 @@ export const TaskCard: React.FC<TaskCardProps> = ({
   time,
   address,
   organization,
-  selected = false,
+  onAccept,
   onSelect,
+  selected = false,
   hasDiscount = false,
   description,
   isOpenDefault = false,
+  onDismiss,
+  meals = false,
+  driveway = false,
 }) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(isOpenDefault);
+  const [isAccepted, setIsAccepted] = React.useState<boolean>(false);
+
+  const onAcceptHandle = () => {
+    onAccept().then(() => setIsAccepted(true));
+  };
+  const onDismissHandle = () => {
+    onDismiss().then(() => setIsAccepted(false));
+  };
 
   return (
     <div
@@ -74,13 +90,27 @@ export const TaskCard: React.FC<TaskCardProps> = ({
         </div>
         <div className={styles.address}>
           {address}
-          <DinnerIcon width={24} height={24} stroke="#3C2D96" />
-          <DeliveryIcon width={24} height={24} stroke="#3C2D96" />
+          <div className={styles.address__icons}>
+            {driveway ? (
+              <DeliveryIcon width={24} height={24} stroke="#3C2D96" />
+            ) : null}
+            {meals ? (
+              <DinnerIcon width={24} height={24} stroke="#3C2D96" />
+            ) : null}
+          </div>
         </div>
         <div className={styles.time}>{time}</div>
         <div className={styles.paymentRate}>{paymentRate}</div>
         <div className={styles.controlls}>
-          <Button>Взять в работу</Button>
+          {isAccepted ? (
+            <Button onClick={onDismissHandle} variant="filled">
+              Отменить
+            </Button>
+          ) : (
+            <Button onClick={onAcceptHandle} variant="outlined">
+              Записаться
+            </Button>
+          )}
           <div className={classNames({ [styles.rotate]: isOpen })}>
             <ShevronDownIcon width={12} height={8} />
           </div>

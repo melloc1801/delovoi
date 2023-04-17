@@ -25,6 +25,8 @@ interface TaskCardMobileProps {
   onSelect?: () => void;
   hasDiscount?: boolean;
   isDefaultOpen?: boolean;
+  onAccept: () => Promise<any>;
+  onDismiss: () => Promise<any>;
 }
 
 export const TaskCardMobile: React.FC<TaskCardMobileProps> = ({
@@ -38,8 +40,19 @@ export const TaskCardMobile: React.FC<TaskCardMobileProps> = ({
   hasDiscount = false,
   description,
   isDefaultOpen = false,
+  onAccept,
+  onDismiss,
 }) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(isDefaultOpen);
+  const [isAccepted, setIsAccepted] = React.useState<boolean>(false);
+
+  const onAcceptHandle = () => {
+    onAccept().then(() => setIsAccepted(true));
+  };
+  const onDismissHandle = () => {
+    onDismiss().then(() => setIsAccepted(false));
+  };
+
   return (
     <div
       className={classNames(
@@ -101,7 +114,15 @@ export const TaskCardMobile: React.FC<TaskCardMobileProps> = ({
             ул. Льва Толстого, 21
           </div>
           <div className={styles.controlls}>
-            <Button>Записаться</Button>
+            {isAccepted ? (
+              <Button onClick={onDismissHandle} variant="filled">
+                Отменить
+              </Button>
+            ) : (
+              <Button onClick={onAcceptHandle} variant="outlined">
+                Записаться
+              </Button>
+            )}
           </div>
         </div>
       </>

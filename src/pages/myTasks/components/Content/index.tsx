@@ -2,91 +2,78 @@ import React from 'react';
 import { Title } from '../../../../UI/Title';
 import { MyTaskCard } from '../../../../components/MyTaskCard';
 import styles from './styles.module.scss';
+import { useLocalStorage } from '../../../../hooks/useLocalStorage';
+import { appConfig } from '../../../../app-config';
+import { formatDateIntoMyTaskFormat } from '../../../../helpers/formatDateIntoMyTaskFormat';
+import { Button } from '../../../../UI/Button';
+import { useGetMyTasksQuery } from '../../../../modules/tasks';
+import { LogoIcon } from '../../../../assets/icons';
+import { Link } from 'react-router-dom';
 
-const list = [
-  {
-    id: 1,
-    medCard: true,
-    address: 'ул. Льва Толстого, 21',
-    arrived: true,
-    description:
-      'Gloria Jeans — советская и российская компания, специализирующаяся на производстве и торговле одеждой, обувью и аксессуарами для всей семьи под брендом «Gloria Jeans». Компания была основана в 1988 году Владимиром Мельниковым.',
-    specialConditions:
-      'Через сколько и при каких условиях получает после смены',
-    organization: { name: 'Магазин без лого' },
-    post: 'Сортировщик',
-    date: '21 марта 2023 09:00-11:00',
-    paymentDescription:
-      'Через сколько и при каких условиях получает после смены 120 ₽/час или до 3 456 ₽/день',
-    isOpenDefault: true,
-  },
-  {
-    id: 2,
-    medCard: true,
-    address: 'ул. Льва Толстого, 21',
-    arrived: true,
-    description:
-      'Gloria Jeans — советская и российская компания, специализирующаяся на производстве и торговле одеждой, обувью и аксессуарами для всей семьи под брендом «Gloria Jeans». Компания была основана в 1988 году Владимиром Мельниковым.',
-    specialConditions:
-      'Через сколько и при каких условиях получает после смены',
-    organization: { name: 'Магазин без лого' },
-    post: 'Сортировщик',
-    date: '21 марта 2023 09:00-11:00',
-    paymentDescription:
-      'Через сколько и при каких условиях получает после смены 120 ₽/час или до 3 456 ₽/день',
-  },
-  {
-    id: 3,
-    medCard: true,
-    address: 'ул. Льва Толстого, 21',
-    arrived: true,
-    description:
-      'Gloria Jeans — советская и российская компания, специализирующаяся на производстве и торговле одеждой, обувью и аксессуарами для всей семьи под брендом «Gloria Jeans». Компания была основана в 1988 году Владимиром Мельниковым.',
-    specialConditions:
-      'Через сколько и при каких условиях получает после смены',
-    organization: { name: 'Магазин без лого' },
-    post: 'Сортировщик',
-    date: '21 марта 2023 09:00-11:00',
-    paymentDescription:
-      'Через сколько и при каких условиях получает после смены 120 ₽/час или до 3 456 ₽/день',
-  },
-  {
-    id: 4,
-    medCard: true,
-    address: 'ул. Льва Толстого, 21',
-    arrived: true,
-    description:
-      'Gloria Jeans — советская и российская компания, специализирующаяся на производстве и торговле одеждой, обувью и аксессуарами для всей семьи под брендом «Gloria Jeans». Компания была основана в 1988 году Владимиром Мельниковым.',
-    specialConditions:
-      'Через сколько и при каких условиях получает после смены',
-    organization: { name: 'Магазин без лого' },
-    post: 'Сортировщик',
-    date: '21 марта 2023 09:00-11:00',
-    paymentDescription:
-      'Через сколько и при каких условиях получает после смены 120 ₽/час или до 3 456 ₽/день',
-  },
-];
 export const Content: React.FC = () => {
+  const ls = useLocalStorage();
+  const { data, fetchNextPage, hasNextPage } = useGetMyTasksQuery(
+    ls.getAuthToken()
+  );
+
   return (
     <>
       <Title>Мои задания</Title>
       <div className={styles.list}>
-        {list.map((el) => (
-          <MyTaskCard
-            key={el.id}
-            organization={el.organization}
-            description={el.description}
-            arrived={el.arrived}
-            paymentDescription={el.paymentDescription}
-            medCard={el.medCard}
-            specialConditions={el.specialConditions}
-            address={el.address}
-            post={el.post}
-            date={el.date}
-            isOpenDefault={el.isOpenDefault}
-          />
-        ))}
+        {data?.pages.length && data.pages[0].total ? (
+          data?.pages.map((page, pageIndex) =>
+            page.data.map((item, itemIndex) => (
+              <MyTaskCard
+                key={item.id}
+                id={item.id}
+                organization={{
+                  name: item.customer_name,
+                  avatarURL: appConfig.imagesPath + item.customer_logo,
+                }}
+                description={item.description ?? ''}
+                arrived={true}
+                paymentDescription={`${item.price} ₽/час или до ${item.sum_shift} ₽/день`}
+                medCard={Boolean(item.medbook)}
+                specialConditions={item.special_conditions}
+                address={item.object}
+                post={item.vacancy}
+                date={formatDateIntoMyTaskFormat(
+                  item.order_date,
+                  item.time_start,
+                  item.time_end
+                )}
+                latitude={item.latitude}
+                longtitude={item.longitude}
+                isOpenDefault={pageIndex === 0 && itemIndex === 0}
+                status={item.status}
+              />
+            ))
+          )
+        ) : (
+          <div className={styles.empty}>
+            <div className={styles.empty__inner}>
+              <LogoIcon width={40} height={85} fill="#3BF1E2" />
+              <div className={styles.empty__title}>
+                Еще не выбрано ни одно задание, деньги ближе, чем ты думаешь!
+              </div>
+              <div className={styles.empty__button}>
+                <Link to="/search">
+                  <Button icon={LogoIcon}>Выбрать задание</Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
+      {hasNextPage ? (
+        <div className={styles.loadmore}>
+          <div className={styles.loadmore__inner}>
+            <Button onClick={async () => await fetchNextPage()}>
+              Подгрузить еще
+            </Button>
+          </div>
+        </div>
+      ) : null}
     </>
   );
 };
