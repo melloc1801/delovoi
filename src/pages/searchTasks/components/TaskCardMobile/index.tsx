@@ -114,15 +114,18 @@ export const TaskCardMobile: React.FC<TaskCardMobileProps> = ({
           {isOpen ? (
             <div className={styles.desription}>{description}</div>
           ) : null}
-          <div
-            className={classNames(
-              { [styles['post--discount']]: hasDiscount },
-              styles.post
-            )}
-          >
-            {post}
+          <div className={styles.post__wrapper}>
+            <div
+              className={classNames(
+                { [styles['post--discount']]: hasDiscount },
+                styles.post
+              )}
+            >
+              {post}
+            </div>
           </div>
           <div className={styles.paymentRate}>
+            <strong>Оплата</strong>
             <div>{paymentCondition}</div>
             <div>{paymentRate}</div>
           </div>
@@ -130,7 +133,7 @@ export const TaskCardMobile: React.FC<TaskCardMobileProps> = ({
         <div className={styles.footer}>
           <div className={styles.address}>
             <GeoIcon width={14} height={20} fill="#FFD480" />
-            ул. Льва Толстого, 21
+            {address}
           </div>
           <div className={styles.controlls}>
             {isAccepted ? (

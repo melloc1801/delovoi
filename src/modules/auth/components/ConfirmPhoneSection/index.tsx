@@ -48,7 +48,7 @@ export const ConfirmPhoneSection: React.FC<ConfirmPhoneSectionProps> = ({
         <div className={styles.confirmation__success}>Верный код</div>
       ) : isCooldownActive ? (
         <div className={styles.confirmation__cooldown}>
-          Новый код придет в течении{' '}
+          Новый код придет в течение{' '}
           <span className={styles['confirmation__cooldown--purple']}>
             {numberToMMSS(seconds)}
           </span>

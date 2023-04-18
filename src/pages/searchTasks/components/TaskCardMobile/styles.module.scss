@@ -58,10 +58,19 @@
   justify-content: flex-end;
 }
 
+
 .post {
   padding: 4px 10px;
   background: #E8EDF3;
   border-radius: 100px;
+
+  &__wrapper {
+    @media (max-width: 480px) {
+      display: flex;
+      justify-content: flex-start;
+      width: 100%;
+    }
+  }
 
   &--discount {
     background-color: #FFD480;

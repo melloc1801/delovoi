@@ -37,5 +37,9 @@
 
   &__status {
     color: #8596AA;
+
+    &--red {
+      color: #EA5858;
+    }
   }
 }

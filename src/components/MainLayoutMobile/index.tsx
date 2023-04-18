@@ -14,6 +14,7 @@ export const MainLayoutMobile: React.FC<MainLayoutMobileProps> = ({
   firstname,
   region,
   status,
+  isStatusVerified,
   children,
 }) => {
   return (
@@ -23,9 +24,9 @@ export const MainLayoutMobile: React.FC<MainLayoutMobileProps> = ({
           <Header
             profile={{
               rating: '5.0',
-              status: status,
-              lastname: lastname,
-              firstname: firstname,
+              status,
+              lastname,
+              firstname,
               region,
             }}
           />
@@ -33,9 +34,10 @@ export const MainLayoutMobile: React.FC<MainLayoutMobileProps> = ({
           <HeaderMobile
             profile={{
               rating: '5.0',
-              status: status,
-              firstname: firstname,
-              lastname: lastname,
+              status,
+              firstname,
+              lastname,
+              isVerified: isStatusVerified,
             }}
           />
         )}

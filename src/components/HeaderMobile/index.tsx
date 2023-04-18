@@ -2,6 +2,7 @@ import React from 'react';
 import { Logo } from '../../UI/Logo';
 import { StarIcon } from '../../assets/icons';
 import styles from './styles.module.scss';
+import classNames from 'classnames';
 
 interface HeaderMobileProps {
   profile: {
@@ -10,6 +11,7 @@ interface HeaderMobileProps {
     lastname: string;
     status: string;
     rating: string;
+    isVerified?: boolean;
   };
 }
 
@@ -26,7 +28,14 @@ export const HeaderMobile: React.FC<HeaderMobileProps> = ({ profile }) => {
       <div className={styles.profile}>
         <div>
           <div className={styles.profile__name}>{profile.firstname}</div>
-          <div className={styles.profile__status}>{profile.status}</div>
+          <div
+            className={classNames(
+              { [styles['profile__status--red']]: !profile.isVerified },
+              styles.profile__status
+            )}
+          >
+            {profile.status}
+          </div>
         </div>
         <img
           className={styles.profile__img}

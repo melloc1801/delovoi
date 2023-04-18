@@ -33,7 +33,7 @@ export const Select: React.FC<SelectProps> = ({ active, values, onSelect }) => {
           setIsOpen((prev) => !prev);
         }}
       >
-        {active ? active.value : 'Ваш город'}
+        {active ? active.value : 'Выберите регион'}
         <div
           className={classNames(
             { [styles['head__icon--opened']]: isOpen },
