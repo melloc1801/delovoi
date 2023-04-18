@@ -29,6 +29,9 @@ export const OTPInput: React.FC<OTPInputProps> = ({
         onInputFilled(code);
       }
       inputRef.current?.blur();
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      document.body.style.zoom = '100%';
     }
 
     setOTP(newOTP);
