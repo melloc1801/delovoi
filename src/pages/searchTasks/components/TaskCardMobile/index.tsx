@@ -100,7 +100,7 @@ export const TaskCardMobile: React.FC<TaskCardMobileProps> = ({
             <CalendarIcon width={20} height={20} fill="#87A2BE" />
             <div>
               <div>{time}</div>
-              <div>{moment(orderDate).format('DD:MM:YYYY')}</div>
+              <div>{moment(orderDate).format('DD.MM.YYYY')}</div>
             </div>
           </div>
           <div className={styles.features}>
