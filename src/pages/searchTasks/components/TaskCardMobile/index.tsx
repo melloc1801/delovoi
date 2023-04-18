@@ -10,6 +10,7 @@ import {
 } from '../../../../assets/icons';
 import { Button } from '../../../../UI/Button';
 import classNames from 'classnames';
+import moment from 'moment';
 
 interface TaskCardMobileProps {
   organization: {
@@ -24,9 +25,13 @@ interface TaskCardMobileProps {
   selected?: boolean;
   onSelect?: () => void;
   hasDiscount?: boolean;
+  paymentCondition: string;
   isDefaultOpen?: boolean;
   onAccept: () => Promise<any>;
   onDismiss: () => Promise<any>;
+  meals?: boolean;
+  driveway?: boolean;
+  orderDate: string;
 }
 
 export const TaskCardMobile: React.FC<TaskCardMobileProps> = ({
@@ -42,6 +47,10 @@ export const TaskCardMobile: React.FC<TaskCardMobileProps> = ({
   isDefaultOpen = false,
   onAccept,
   onDismiss,
+  meals = false,
+  driveway = false,
+  paymentCondition,
+  orderDate,
 }) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(isDefaultOpen);
   const [isAccepted, setIsAccepted] = React.useState<boolean>(false);
@@ -89,11 +98,18 @@ export const TaskCardMobile: React.FC<TaskCardMobileProps> = ({
         <div className={styles.body}>
           <div className={styles.date}>
             <CalendarIcon width={20} height={20} fill="#87A2BE" />
-            {time}
+            <div>
+              <div>{time}</div>
+              <div>{moment(orderDate).format('DD:MM:YYYY')}</div>
+            </div>
           </div>
           <div className={styles.features}>
-            <DinnerIcon width={24} height={24} stroke="#3C2D96" />
-            <DeliveryIcon width={24} height={24} stroke="#3C2D96" />
+            {driveway ? (
+              <DeliveryIcon width={24} height={24} stroke="#3C2D96" />
+            ) : null}
+            {meals ? (
+              <DinnerIcon width={24} height={24} stroke="#3C2D96" />
+            ) : null}
           </div>
           {isOpen ? (
             <div className={styles.desription}>{description}</div>
@@ -106,7 +122,10 @@ export const TaskCardMobile: React.FC<TaskCardMobileProps> = ({
           >
             {post}
           </div>
-          <div className={styles.paymentRate}>{paymentRate}</div>
+          <div className={styles.paymentRate}>
+            <div>{paymentCondition}</div>
+            <div>{paymentRate}</div>
+          </div>
         </div>
         <div className={styles.footer}>
           <div className={styles.address}>

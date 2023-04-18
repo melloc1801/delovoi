@@ -63,6 +63,15 @@ export const MyTaskCard: React.FC<MyTaskCardProps> = ({
     }
   };
 
+  const [isRouteHovered, setIsRouteHovered] = React.useState<boolean>(false);
+
+  const onMouseEnter = () => {
+    setIsRouteHovered(true);
+  };
+  const onMouseLeave = () => {
+    setIsRouteHovered(false);
+  };
+
   return (
     <div className={styles.wrapper}>
       <div
@@ -78,7 +87,9 @@ export const MyTaskCard: React.FC<MyTaskCardProps> = ({
         }}
       >
         {isClosedTask ? (
-          <div className={styles.closed__header}>Ваше ближайшее задание</div>
+          <div className={styles.closed__header}>
+            Ваше ближайшее задание {isClosedTask ? `(${status})` : null}
+          </div>
         ) : (
           <div className={styles.default__header}>
             {organization.avatarURL ? (
@@ -166,8 +177,16 @@ export const MyTaskCard: React.FC<MyTaskCardProps> = ({
             target="_blank"
             rel="noreferrer"
           >
-            <button className={styles.route}>
-              <RouteIcon width={20} height={20} fill="#3BF1E2" />
+            <button
+              className={styles.route}
+              onMouseEnter={onMouseEnter}
+              onMouseLeave={onMouseLeave}
+            >
+              <RouteIcon
+                width={20}
+                height={20}
+                fill={isRouteHovered ? '#3C2D96' : '#3BF1E2'}
+              />
             </button>
           </a>
           <Button onClick={async () => await dissmiss(id)} variant="outlined">

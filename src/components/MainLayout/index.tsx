@@ -13,6 +13,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   firstname,
   children,
   status,
+  region,
 }) => {
   return (
     <div className={styles.wrapper}>
@@ -24,7 +25,9 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
           profile={{
             rating: '5.0',
             status,
-            name: `${lastname} ${firstname}`,
+            firstname,
+            lastname,
+            region,
           }}
         />
         <div className={styles.content}>{children}</div>

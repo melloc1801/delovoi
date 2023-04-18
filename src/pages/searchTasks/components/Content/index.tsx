@@ -108,6 +108,8 @@ export const Content: React.FC = () => {
               ? data?.pages.map((page) =>
                   page.data.map((item, i) => (
                     <TaskCard
+                      orderDate={item.order_date}
+                      paymentCondition={item.payment}
                       key={`${item.id} ${i}`}
                       organization={{
                         name: item.customer_name,
@@ -118,7 +120,11 @@ export const Content: React.FC = () => {
                       post={item.vacancy}
                       address={item.object}
                       time={formatWorkHours(item.time_start, item.time_end)}
-                      paymentRate={`${item.price} ₽/час или до ${item.sum_shift} ₽/день`}
+                      paymentRate={`${
+                        item.price
+                      } ₽/${item.task_type.toLowerCase()} или до ${
+                        item.sum_shift
+                      } ₽/день`}
                       hasDiscount={false}
                       description={item.description ?? ''}
                       onAccept={async () =>
@@ -135,6 +141,8 @@ export const Content: React.FC = () => {
               : data?.pages.map((page) =>
                   page.data.map((item, i) => (
                     <TaskCardMobile
+                      orderDate={item.order_date}
+                      paymentCondition={item.payment}
                       key={`${item.id} ${i}`}
                       organization={{
                         name: item.customer_name,
@@ -143,7 +151,11 @@ export const Content: React.FC = () => {
                       post={item.vacancy}
                       address={item.object}
                       time={formatWorkHours(item.time_start, item.time_end)}
-                      paymentRate={`${item.price} ₽/час или до ${item.sum_shift} ₽/день`}
+                      paymentRate={`${
+                        item.price
+                      } ₽/${item.task_type.toLowerCase()} или до ${
+                        item.sum_shift
+                      } ₽/день`}
                       hasDiscount={false}
                       description={item.description ?? ''}
                       onAccept={async () =>
@@ -153,6 +165,8 @@ export const Content: React.FC = () => {
                           baseId: item.base_id,
                         })
                       }
+                      driveway={Boolean(item.driveway)}
+                      meals={Boolean(item.meals)}
                       onDismiss={async () => await dismissTask(item.id)}
                     />
                   ))

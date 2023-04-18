@@ -29,6 +29,10 @@
     font-size: 12px;
     line-height: 16px;
     color: #8596AA;
+
+    &--red {
+      color: #EA5858;
+    }
   }
 
   &__rating {
@@ -44,6 +48,10 @@
   display: flex;
   align-items: center;
   gap: 24px;
+}
+
+.region {
+  text-align: right;
 }
 
 .notifications {

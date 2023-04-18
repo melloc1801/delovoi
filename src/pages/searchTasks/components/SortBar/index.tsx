@@ -10,7 +10,7 @@ export interface Col {
 }
 
 const cols: Col[] = [
-  { label: 'Объект', key: 'customer_name', order: null },
+  { label: 'Заказчик', key: 'customer_name', order: null },
   { label: 'Вид деятельности', key: 'vacancy', order: null },
   { label: 'Адрес', key: 'address_full', order: null },
   { label: 'Время', key: 'time_start', order: null },

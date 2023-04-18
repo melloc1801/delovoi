@@ -72,6 +72,12 @@
   flex: 1 1 25%;
 }
 
+.paymentRate {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .footer {
   display: flex;
   justify-content: space-between;

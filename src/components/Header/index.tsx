@@ -1,18 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { LogoIcon, StarIcon } from '../../assets/icons';
 import styles from './styles.module.scss';
 import { Button } from '../../UI/Button';
+import { ProfileContext } from '../../modules/profile';
+import classNames from 'classnames';
 
 interface HeaderProps {
   profile: {
     avatarUrl?: string;
-    name: string;
+    lastname: string;
+    firstname: string;
     status: string;
     rating: string;
+    region: string;
   };
 }
 
 export const Header: React.FC<HeaderProps> = ({ profile }) => {
+  const profileContext = useContext(ProfileContext);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.profile}>
@@ -25,8 +31,20 @@ export const Header: React.FC<HeaderProps> = ({ profile }) => {
           alt="Profile avatart"
         />
         <div className={styles.profile__info}>
-          <div className={styles.profile__name}>{profile.name}</div>
-          <div className={styles.profile__status}>{profile.status}</div>
+          <div className={styles.profile__name}>
+            {profile.firstname} {profile.lastname}
+          </div>
+          <div
+            className={classNames(
+              {
+                [styles['profile__status--red']]:
+                  !profileContext.isStatusVerified,
+              },
+              styles.profile__status
+            )}
+          >
+            {profile.status}
+          </div>
         </div>
         <div className={styles.profile__rating}>
           <StarIcon width={28} height={28} fill="#FFD480" />
@@ -38,7 +56,12 @@ export const Header: React.FC<HeaderProps> = ({ profile }) => {
         {/*  <div className={styles.notifications__identifier}></div> */}
         {/*  <BellIcon width={20} height={20} fill="#798C9D" /> */}
         {/* </div> */}
-        <Button icon={LogoIcon}>Начать выполнять задание</Button>
+        <div className={styles.region}>{profile.region}</div>
+        <div>
+          <Button icon={LogoIcon} disabled>
+            Начать выполнять задание
+          </Button>
+        </div>
       </div>
     </div>
   );

@@ -16,6 +16,11 @@
 }
 
 .profile {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  text-align: right;
+
   &__img {
     width: 40px;
     height: 40px;
@@ -23,5 +28,14 @@
     border-radius: 50%;
     overflow: hidden;
     object-fit: cover;
+  }
+
+  &__name {
+    font-weight: 600;
+    color: #181920;
+  }
+
+  &__status {
+    color: #8596AA;
   }
 }

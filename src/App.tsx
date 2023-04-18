@@ -41,9 +41,11 @@ function App() {
           middlename: profileData?.data.user.middlename ?? '',
           lastname: profileData?.data.user.lastname ?? '',
           phone: profileData?.data.user.phone ?? '',
-          city: profileData?.data.user.city ?? '',
+          region: profileData?.data.user.region ?? '',
           balance: profileData?.data.contractor.balance.value ?? 0,
           status: profileData?.data.contractor.legal_form.title ?? '',
+          isStatusVerified:
+            profileData?.data.contractor.legal_form.status.is_verified,
         }}
       >
         <Routes>

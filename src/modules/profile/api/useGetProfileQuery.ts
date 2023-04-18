@@ -11,7 +11,7 @@ interface ResponseBody {
       middlename: string;
       phone: string;
       email: string;
-      city: string;
+      region: string;
       contractor_id: number;
     };
     contractor: {
@@ -20,6 +20,9 @@ interface ResponseBody {
       };
       legal_form: {
         title: string;
+        status: {
+          is_verified: boolean;
+        };
       };
     };
   };

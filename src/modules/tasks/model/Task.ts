@@ -12,9 +12,12 @@ export interface Task {
   customer_logo: string;
   base_id: number;
   special_conditions: string;
+  payment: string;
   medbook: number;
   order_date: string;
   object: string;
   meals: number;
+  status: string;
   driveway: number;
+  task_type: string;
 }

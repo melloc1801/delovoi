@@ -6,7 +6,8 @@ import styles from './styles.module.scss';
 interface HeaderMobileProps {
   profile: {
     avatarUrl?: string;
-    name: string;
+    firstname: string;
+    lastname: string;
     status: string;
     rating: string;
   };
@@ -22,7 +23,11 @@ export const HeaderMobile: React.FC<HeaderMobileProps> = ({ profile }) => {
           {profile.rating}
         </div>
       </div>
-      <div>
+      <div className={styles.profile}>
+        <div>
+          <div className={styles.profile__name}>{profile.firstname}</div>
+          <div className={styles.profile__status}>{profile.status}</div>
+        </div>
         <img
           className={styles.profile__img}
           src={

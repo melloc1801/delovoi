@@ -8,6 +8,7 @@ import {
 } from '../../../../assets/icons';
 import { Button } from '../../../../UI/Button';
 import classNames from 'classnames';
+import moment from 'moment/moment';
 
 interface TaskCardProps {
   organization: {
@@ -19,12 +20,14 @@ interface TaskCardProps {
   address: string;
   time: string;
   paymentRate: string;
+  paymentCondition: string;
   onAccept: () => Promise<any>;
   onDismiss: () => Promise<any>;
   selected?: boolean;
   onSelect?: () => void;
   hasDiscount?: boolean;
   isOpenDefault?: boolean;
+  orderDate: string;
   meals?: boolean;
   driveway?: boolean;
 }
@@ -44,6 +47,8 @@ export const TaskCard: React.FC<TaskCardProps> = ({
   onDismiss,
   meals = false,
   driveway = false,
+  paymentCondition,
+  orderDate,
 }) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(isOpenDefault);
   const [isAccepted, setIsAccepted] = React.useState<boolean>(false);
@@ -99,8 +104,14 @@ export const TaskCard: React.FC<TaskCardProps> = ({
             ) : null}
           </div>
         </div>
-        <div className={styles.time}>{time}</div>
-        <div className={styles.paymentRate}>{paymentRate}</div>
+        <div className={styles.time}>
+          {time}
+          <div>{moment(orderDate).format('DD:MM:YYY')}</div>
+        </div>
+        <div className={styles.paymentRate}>
+          <div>{paymentCondition}</div>
+          <div>{paymentRate}</div>
+        </div>
         <div className={styles.controlls}>
           {isAccepted ? (
             <Button onClick={onDismissHandle} variant="filled">

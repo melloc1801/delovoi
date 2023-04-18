@@ -1,46 +1,62 @@
-# Getting Started with Create React App
+# Delovoi
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## HR-платформа для поиска работы самозанятым
 
-## Available Scripts
+### Стек
 
-In the project directory, you can run:
+1. React
+2. Typescript
+3. React-query (with axios)
+4. React-Router-Dom (v6)
+5. Formik
+4. CSS-modules
+5. Yandex-maps
+6. Eslint + Prettier
 
-### `yarn start`
+### Функционал
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Авторизация / Регистрация.
+   Регистрация и авторизация осуществляются с помощью номера телефона с помощью кода.
+2. Поиск заданий.
+   Пользователь может сортировать и фильтровать список заданий по нескольким параметрам, изменять вид: карта, либо
+   список.
+3. Отклик на задание.
+   Пользователь может откликать на задание, после чего, задание добавляется в Мои задание, где он может отслеживать их
+   статус (На рассмотрении, Подтверждено, Отказ)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Архитектура
 
-### `yarn test`
+Архитектура проекта состоит из
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Страниц (Pages)
+2. Модулей (Modules)
+3. Компонентов (Components)
+4. UI
 
-### `yarn build`
+_UI_ - Наименьшая единица. Независима от окружения. Пример: Input, Button, Select и тд.
+_Component_ - Состоит из UI-компонентов. Независима от окружения. Пример: Карточка товара, Header, Sidebar и тд.
+_Module_ - Независимая фича, которая не только отображает, но и запрашивает и обрабатывает данные.
+_Page_ - Состоит из всех выше перечисленных частей. Суть страницы в том, чтобы она должна быть максимальна тонкая, а вся
+логика и верстка должны быть в модулях, компонентах и UI.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### Важно:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Части нижнего уровня не имеют доступа к частям верхнего уровня. Пример: UI не может состоять из компонентов, модули не
+  могут состоять из страниц и тд.
+- Все модули должны иметь публичный интерфейс. Публичным интерфесом в каждом модули выступает index.ts файл, из которого
+  другие модули могут импортировать нужный им функционал данного модуля. При импортировании файла из одного модуля в
+  другой на прямую (не через публичный интерфейс), повышается связанность кода.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Начало работы
 
-### `yarn eject`
+Установка зависимостей
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+yarn install
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Запуск приложения
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+yarn start
+```

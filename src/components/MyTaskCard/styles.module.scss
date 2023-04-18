@@ -163,6 +163,10 @@
   flex: 0 0 40px;
   background: #3C2D96;
   border-radius: 8px;
+
+  &:hover {
+    background-color: #FFD480;
+  }
 }
 
 .organization {

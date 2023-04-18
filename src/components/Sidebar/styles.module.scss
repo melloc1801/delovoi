@@ -28,9 +28,17 @@
     border-radius: 8px;
     color: rgba(24, 25, 32, 0.6);
 
+    &:hover {
+      color: rgba(24, 25, 32, 0.6);
+    }
+
     &--active {
       color: #fff;
       background-color: #3C2D96;
+
+      &:hover {
+        color: #fff;
+      }
     }
   }
 

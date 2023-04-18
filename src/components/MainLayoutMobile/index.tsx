@@ -12,6 +12,8 @@ interface MainLayoutMobileProps extends Profile {
 export const MainLayoutMobile: React.FC<MainLayoutMobileProps> = ({
   lastname,
   firstname,
+  region,
+  status,
   children,
 }) => {
   return (
@@ -21,16 +23,19 @@ export const MainLayoutMobile: React.FC<MainLayoutMobileProps> = ({
           <Header
             profile={{
               rating: '5.0',
-              status: 'Самозанятый',
-              name: `${lastname} ${firstname}`,
+              status: status,
+              lastname: lastname,
+              firstname: firstname,
+              region,
             }}
           />
         ) : (
           <HeaderMobile
             profile={{
               rating: '5.0',
-              status: 'Самозанятый',
-              name: 'Четырин Аркадий',
+              status: status,
+              firstname: firstname,
+              lastname: lastname,
             }}
           />
         )}
