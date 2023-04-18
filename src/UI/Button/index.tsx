@@ -28,6 +28,8 @@ export const Button: React.FC<ButtonProps> = ({
     setHovered(false);
   };
 
+  const onMouseDown = () => [setHovered(false)];
+
   return (
     <button
       {...props}
@@ -42,6 +44,7 @@ export const Button: React.FC<ButtonProps> = ({
       )}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      onMouseDown={onMouseDown}
     >
       <div>
         {Icon ? (
