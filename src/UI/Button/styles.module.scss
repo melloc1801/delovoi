@@ -6,6 +6,7 @@
   width: 100%;
   height: 40px;
   border-radius: 8px;
+  transition: all .15s ease;
 
   &:disabled {
     opacity: 60%;
@@ -19,7 +20,9 @@
       background-color: #3C2D96;
 
       &:hover {
-        background-color: darken(#3C2D96, 10%);
+        color: #3C2D96;
+        background-color: #FFD480;
+        border: 1px solid #FFD480;
       }
     }
 
@@ -27,6 +30,12 @@
       border: 1px solid #3C2D96;
       color: #3C2D96;
       background-color: transparent;
+
+      &:hover {
+        border: 1px solid #FFD480;
+        color: #3C2D96;
+        background-color: #FFD480;
+      }
     }
   }
 
@@ -38,7 +47,7 @@
 
 
       &:hover {
-        background-color: darken(#3BF1E2, 10%);
+        background-color: #3BF1E2;
       }
     }
 
@@ -46,6 +55,11 @@
       border: 1px solid #3BF1E2;
       color: #3BF1E2;
       background-color: transparent;
+
+      &:hover {
+        color: #fff;
+        background-color: #3BF1E2;
+      }
     }
   }
 

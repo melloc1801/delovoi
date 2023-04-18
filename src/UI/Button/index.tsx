@@ -18,6 +18,16 @@ export const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const Icon = icon;
+
+  const [hovered, setHovered] = React.useState<boolean>(false);
+
+  const onMouseEnter = () => {
+    setHovered(true);
+  };
+  const onMouseLeave = () => {
+    setHovered(false);
+  };
+
   return (
     <button
       {...props}
@@ -30,8 +40,14 @@ export const Button: React.FC<ButtonProps> = ({
         },
         styles.button
       )}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
-      <div>{Icon ? <Icon fill="#3BF1E2" width={20} height={20} /> : null}</div>
+      <div>
+        {Icon ? (
+          <Icon fill={hovered ? '#3C2D96' : '#3BF1E2'} width={20} height={20} />
+        ) : null}
+      </div>
       {children}
     </button>
   );
