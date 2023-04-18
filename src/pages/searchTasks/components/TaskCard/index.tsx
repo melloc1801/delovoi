@@ -109,7 +109,6 @@ export const TaskCard: React.FC<TaskCardProps> = ({
           <div>{moment(orderDate).format('DD.MM.YYYY')}</div>
         </div>
         <div className={styles.paymentRate}>
-          <div>{paymentCondition}</div>
           <div>{paymentRate}</div>
         </div>
         <div className={styles.controlls}>
